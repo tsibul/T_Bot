@@ -2,7 +2,7 @@ from telebot import TeleBot, types
 from functions import *
 
 
-TOKEN = ''
+TOKEN = '5924570455:AAE4JkWLXeaDuwGyLxvg5Cmg8ikE47BSJ'
 BOT_PATH ='t.me/gbl_8_191222_bot'
 
 
