@@ -1,5 +1,27 @@
 from telebot import TeleBot, types
 
+class Phone:
+    def __init__(self, *args, **kwargs):
+        if len(args) == 5:
+            self.surname = args[1]
+            self.name = args[2]
+            self.phone = args[3]
+            self.phone_type = args[4]
+            self.id = args[0]
+        #            xxx = kwargs["key"]
+
+        elif len(args) == 1:
+            self.__init__(args[0][0], args[0][1], args[0][2], args[0][3], args[0][3])
+        else:
+            raise TypeError("wrong number of args")
+
+    def __repr__(self):
+        return self.id + ' ' + self.name + ' ' + self.surname + ' ' + self.phone
+
+    def __str__(self):
+        return self.id + ' ' + self.name + ' ' + self.surname + ' ' + (self.phone).replace(' ', '') + ' ' +self.phone_type
+
+
 def split_string(string):
     string = string.replace('+', ' + ')
     string = string.replace('-', ' - ')
@@ -56,21 +78,54 @@ def calc_result(string2):
     return calc_parse(digit_lst3)
 
 
-def check_result(field):
-    for i in range(3):
-        if field[i * 3] == field[i * 3 + 1] == field[i * 3 + 2] and field[i * 3] != ' ':
-            return field[i * 3]
-        elif field[i] == field[i + 3] == field[i + 6] and field[i] != ' ':
-            return field[i]
-        elif (field[0] == field[4] == field[8] or field[2] == field[4] == field[6]) and field[4] != ' ':
-            return field[4]
-    return None
-
-
 def change_turn(turn):
     if turn == 'x':
         turn = 'o'
     else:
         turn = 'x'
     return turn
+
+def print_help():
+    return '/calc - Калькулятор \n' \
+           ' /cross - Крестики/нолики  \n ' \
+           '/log - Логирование \n ' \
+           '/phonebook - Телефонная книга'
+
+
+def print_menu():
+    return ('Введите пункт меню:' +
+    '\n 1: Редактирование' +
+    '\n 2: Экспорт' +
+    '\n 3: Вывод' +
+    '\n 8: Выйти')
+
+def print_edit():
+    return ('Введите пункт меню:'+
+    '\n 1: Ввод' +
+    '\n 2: Редактирование' +
+    '\n 3: Удаление' +
+    '\n 8: Возврат в главное меню')
+
+
+def print_outputs():
+    return ('Введите пункт меню:'+
+    '\n 1: Показать всех' +
+    '\n 2: Поиск по id' +
+    '\n 3: Поиск' +
+    '\n 8: Возврат в главное меню')
+
+
+def print_exports():
+    return ('Введите пункт меню:'+
+    '\n 1: Экспорт в csv' +
+    '\n 2: Экспорт в xml' +
+    '\n 3: Экспорт в html' +
+    '\n 8: Возврат в главное меню')
+
+
+def arr_from_phonebook(phonebook):
+    arr = []
+    for phone in phonebook:
+        arr.append(str(phone).split())
+    return arr
 
